@@ -1,0 +1,26 @@
+# Dependencies / build output
+node_modules/
+.next/
+out/
+build/
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment
+.env
+.env*.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+# NOTE: /assets is committed on purpose. It is the brand's only photography and
+# it is the source of the palette (see reference/INHERITED-TOKENS.md). The build
+# reads from it and writes optimized derivatives into /public.
