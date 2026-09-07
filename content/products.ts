@@ -7,7 +7,10 @@
  *   - `line: "stock"`  — physical garments the client holds. One product: the
  *     rhinestone hoodie, the only item on this site with a real photograph.
  *   - `line: "print"`  — the print-on-demand drop. Every image is a 3D mockup
- *     render (`kind: "render"`) and is labelled as such in the UI.
+ *     render (`kind: "render"`) and is labelled as such in the UI. Colourways
+ *     with neither a photograph nor a render carry a flat illustration drawn
+ *     from the print spec (`kind: "illustration"`, scripts/illustrate-products.mjs),
+ *     also labelled.
  *
  * Every entry is a PLACEHOLDER until the client confirms it (`confirmed: false`).
  * Prices reflect Printify base costs at roughly 40–50% gross margin, positioned
@@ -20,7 +23,7 @@ import type { SizeGuideKey } from "./size-guide";
 
 export type Size = "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "One size";
 export type ProductLine = "stock" | "print";
-export type ImageKind = "photo" | "render";
+export type ImageKind = "photo" | "render" | "illustration";
 export type ImageView = "front" | "back";
 
 export interface ProductImage {
@@ -256,7 +259,13 @@ export const products: readonly Product[] = [
         ],
         note: "Off the red-and-black palette. Rendered, not confirmed.",
       },
-      { slug: "black", name: "Black", hex: "#131316", images: [], note: "Not rendered yet." },
+      {
+        slug: "black",
+        name: "Black",
+        hex: "#131316",
+        images: [{ key: "illus-core-tee-black", kind: "illustration", view: "front", alt: "Illustration of a black boxy tee with the oversized TM monogram in red, outlined in white, across the centre chest." }],
+        note: "Not rendered yet; shown as an illustration.",
+      },
     ],
     notes: [
       "The only tee render is royal blue, which is off the client's red/black palette. Confirm the colourway or re-render in black.",
@@ -284,10 +293,10 @@ export const products: readonly Product[] = [
     },
     care: TEE_CARE,
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "red", name: "Red", hex: "#9C2736", images: [] },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "illus-long-sleeve-tee-black", kind: "illustration", view: "front", alt: "Illustration of a black long-sleeve tee: small cream TM monogram at the left chest, MENTAL TOUGHNESS down the right sleeve." }] },
+      { slug: "red", name: "Red", hex: "#9C2736", images: [{ key: "illus-long-sleeve-tee-red", kind: "illustration", view: "front", alt: "Illustration of a red long-sleeve tee: small cream TM monogram at the left chest, MENTAL TOUGHNESS down the right sleeve." }] },
     ],
-    notes: ["No imagery of any kind. Renders as a labelled placeholder."],
+    notes: ["No photograph or render. Shown as labelled illustrations drawn from the print spec."],
   },
   {
     slug: "crewneck-sweatshirt",
@@ -310,10 +319,10 @@ export const products: readonly Product[] = [
     },
     care: FLEECE_CARE,
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "red", name: "Red", hex: "#9C2736", images: [] },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "illus-crewneck-sweatshirt-black", kind: "illustration", view: "front", alt: "Illustration of a black heavyweight crewneck sweatshirt with ribbed collar, cuffs and hem: small cream TM monogram at the left chest, MENTAL TOUGHNESS down the right sleeve." }] },
+      { slug: "red", name: "Red", hex: "#9C2736", images: [{ key: "illus-crewneck-sweatshirt-red", kind: "illustration", view: "front", alt: "Illustration of a red heavyweight crewneck sweatshirt with ribbed collar, cuffs and hem: small cream TM monogram at the left chest, MENTAL TOUGHNESS down the right sleeve." }] },
     ],
-    notes: ["No imagery of any kind. Renders as a labelled placeholder."],
+    notes: ["No photograph or render. Shown as labelled illustrations drawn from the print spec."],
   },
   {
     slug: "fleece-joggers",
@@ -426,10 +435,10 @@ export const products: readonly Product[] = [
     },
     care: TEE_CARE,
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "olive", name: "Olive", hex: "#5A5B45", images: [], note: "Seen on the founder. Not confirmed for the drop." },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "illus-tank-top-black", kind: "illustration", view: "front", alt: "Illustration of a black cotton tank top with a small cream TM monogram at the centre chest." }] },
+      { slug: "olive", name: "Olive", hex: "#5A5B45", images: [{ key: "illus-tank-top-olive", kind: "illustration", view: "front", alt: "Illustration of an olive cotton tank top with a small cream TM monogram at the centre chest." }], note: "Seen on the founder. Not confirmed for the drop." },
     ],
-    notes: ["No product shot. Visible on the founder in millz_01.png only."],
+    notes: ["No product shot; visible on the founder in millz_01.png only. Shown as labelled illustrations."],
   },
   {
     slug: "bucket-hat",
@@ -454,10 +463,10 @@ export const products: readonly Product[] = [
     },
     care: ["Spot clean with cold water and mild soap.", "Reshape and air dry. Do not machine wash."],
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "orange", name: "Orange", hex: "#FE732E", images: [], note: "The founder's. Not confirmed for the drop." },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "illus-bucket-hat-black", kind: "illustration", view: "front", alt: "Illustration of a black cotton bucket hat with a short stitched brim and a cream TM monogram on the front panel." }] },
+      { slug: "orange", name: "Orange", hex: "#FE732E", images: [{ key: "illus-bucket-hat-orange", kind: "illustration", view: "front", alt: "Illustration of an orange cotton bucket hat with a short stitched brim and a black TM monogram on the front panel." }], note: "The founder's. Not confirmed for the drop." },
     ],
-    notes: ["Replaces the brief's 'Dad Hat'. No product shot; the hat is visible on the founder in millz_01.png."],
+    notes: ["Replaces the brief's 'Dad Hat'. No product shot; the hat is visible on the founder in millz_01.png. Shown as labelled illustrations."],
   },
   {
     slug: "beanie",
@@ -480,10 +489,10 @@ export const products: readonly Product[] = [
     },
     care: ["Hand wash cold. Lay flat to dry.", "Do not bleach, tumble dry, or iron."],
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "red", name: "Red", hex: "#9C2736", images: [] },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "illus-beanie-black", kind: "illustration", view: "front", alt: "Illustration of a black ribbed knit beanie with a fold-over cuff and a small cream woven TM label at the front." }] },
+      { slug: "red", name: "Red", hex: "#9C2736", images: [{ key: "illus-beanie-red", kind: "illustration", view: "front", alt: "Illustration of a red ribbed knit beanie with a fold-over cuff and a small cream woven TM label at the front." }] },
     ],
-    notes: ["No imagery of any kind. Renders as a labelled placeholder."],
+    notes: ["No photograph or render. Shown as labelled illustrations drawn from the print spec."],
   },
 ];
 
@@ -517,7 +526,7 @@ export function primaryImage(product: Product, colorwaySlug?: string): ProductIm
   return undefined;
 }
 
-/** True if at least one colourway has any imagery (photo or render). */
+/** True if at least one colourway has any imagery (photo, render or illustration). */
 export function hasImagery(product: Product): boolean {
   return product.colorways.some((c) => c.images.length > 0);
 }

@@ -95,7 +95,8 @@ made the mark for an `.svg` or `.ai` file.
 ### 3.4 Product photography
 
 Only the rhinestone hoodie is photographed, front only. Everything else is a
-labelled 3D mockup or a labelled placeholder. Before the drop ships:
+labelled 3D mockup or a labelled illustration drawn from the print spec.
+Before the drop ships:
 
 - Photograph the **first printed samples** of every piece, front and back, on a
   plain background. Phone photos are fine.

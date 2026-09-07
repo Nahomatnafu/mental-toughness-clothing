@@ -159,13 +159,18 @@ identical rounded cards. Measures taken:
 - **One product is large.** The rhinestone hoodie is the hero image on every
   visit, the largest thing on the home page, and the only thing in the hero
   besides type. The heavyweight hoodie gets a 3 / 6 / 3 triptych at three scales.
-- **What has no imagery is a list, not a hole.** The home page shows the three
-  photographed-or-rendered collection pieces as cards at 5 / 4 / 3 columns, and
-  the five unphotographed pieces as a **line sheet** — name, category, price,
-  status — which is how a wholesale catalogue presents product without
-  photography. It reads as deliberate.
-- **Placeholders are correct-aspect, hatched, and labelled.** Dropping a real
-  photograph in later causes no layout shift.
+- **What has no photograph or render is drawn, not left as a hole.** Eleven
+  colourways across six products had no imagery of any kind. Rather than
+  leave hatched placeholders in front of the client, each is a flat front-view
+  illustration generated from the print spec (`scripts/illustrate-products.mjs`):
+  the garment silhouette in its colour, the monogram and wordmark where the
+  spec puts them, on the same dark backdrop as the mockups. They are labelled
+  **Illustration** on every card and caption, exactly as renders are labelled
+  **3D mockup**. The home collection is an eight-card grid at
+  5 / 4 / 3 · 4 / 4 / 4 · 7 / 5 columns.
+- **The placeholder component still exists** for any colourway added without
+  imagery: correct-aspect, hatched, labelled, no layout shift when the real
+  image lands.
 - **Product page**: gallery left with description, specs and disclosures
   beneath it; a sticky purchase panel right. On phones the panel follows the
   gallery and the long copy comes last.
@@ -322,8 +327,11 @@ Decisions that follow directly from [`ASSET-INVENTORY.md`](ASSET-INVENTORY.md):
 2. **Renders are labelled "3D mockup"** in the gallery caption on every product
    page and in the meta line of every card. The renders' own backdrops (black
    gradient, red) are kept — they happen to match the palette exactly.
-3. **Five products have no imagery** and render as hatched, labelled
-   placeholders at the correct aspect ratio for the garment type.
+3. **Six products have no photograph or render.** Their eleven colourways
+   are flat illustrations drawn from the print spec — silhouette, colour,
+   artwork placement — and labelled "Illustration" wherever a mockup would
+   say "3D mockup". They are generated, not hand-drawn, so a change to a
+   colour or a print position is one line and a re-run of `npm run images`.
 4. **Nobody appears without a release.** `hero-01.jpg`, `hero-02.jpg` and
    `customer_01.jpg` contain identifiable people and the client has confirmed
    he has no written permission. The image pipeline does not copy them into

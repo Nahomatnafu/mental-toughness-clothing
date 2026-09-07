@@ -46,5 +46,9 @@ export function ProductImage({ product, image, colorway, sizes, priority, classN
 export function imageKindLabel(product: Product, colorway?: string): string {
   const img = primaryImage(product, colorway);
   if (!img) return "Not photographed yet";
-  return img.kind === "photo" ? "Photograph" : "3D mockup";
+  return kindLabel(img.kind);
+}
+
+export function kindLabel(kind: ProductImageT["kind"]): string {
+  return kind === "photo" ? "Photograph" : kind === "render" ? "3D mockup" : "Illustration";
 }

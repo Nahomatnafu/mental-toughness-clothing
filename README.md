@@ -57,6 +57,11 @@ client signs off. The full list of what is unconfirmed is in
 3. Reference the new manifest key from the product's colourway in `content/products.ts`
    with `kind: "photo"` and real alt text describing the garment and the print.
 
+Colourways with neither a photograph nor a mockup get a flat illustration from
+[`scripts/illustrate-products.mjs`](scripts/illustrate-products.mjs), drawn from
+the print spec and labelled "Illustration" in the UI. `npm run images` rebuilds
+them too; edit the spec table at the bottom of that script to change one.
+
 Lifestyle images with unreleased likenesses (`hero-01`, `hero-02`, `customer_01`)
 are **not** copied to `/public` unless you pass `--include-unreleased`. Anything
 under `/public` is a public URL whether or not a page renders it.
@@ -77,7 +82,7 @@ app/actions/            Server actions: subscribe (waitlist / notify / checkout)
 components/
   brand/                Monogram (inline SVG), Wordmark
   ui/                   Beam (the signature element), Button, SectionHeading, Tag, Placeholder
-  product/              ProductView (client), cards, line sheet, size guide, JSON-LD
+  product/              ProductView (client), cards, size guide, JSON-LD
   cart/                 CartProvider (React state only — no localStorage), drawer, checkout modal
   forms/                EmailCapture, ContactForm (useActionState)
   home/ shop/ layout/   Page sections
@@ -88,7 +93,7 @@ lib/
   email.ts              Resend wrapper with the dev/prod fallback rule
   og.ts                 Satori helpers for the OG image routes
 emails/                 Plain-text + HTML templates
-scripts/                prepare-images.mjs, trace-logo.mjs
+scripts/                prepare-images.mjs, illustrate-products.mjs, trace-logo.mjs, build-fonts.mjs
 public/images/          Generated derivatives (committed so Vercel needs no extra step)
 ```
 

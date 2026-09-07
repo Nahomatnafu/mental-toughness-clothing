@@ -70,6 +70,61 @@ export const images = {
     "src": "/images/brand/founder-millz.jpg",
     "width": 710,
     "height": 943
+  },
+  "illus-core-tee-black": {
+    "src": "/images/products/illus-core-tee-black.jpg",
+    "width": 1433,
+    "height": 1600
+  },
+  "illus-long-sleeve-tee-black": {
+    "src": "/images/products/illus-long-sleeve-tee-black.jpg",
+    "width": 1433,
+    "height": 1600
+  },
+  "illus-long-sleeve-tee-red": {
+    "src": "/images/products/illus-long-sleeve-tee-red.jpg",
+    "width": 1433,
+    "height": 1600
+  },
+  "illus-crewneck-sweatshirt-black": {
+    "src": "/images/products/illus-crewneck-sweatshirt-black.jpg",
+    "width": 1600,
+    "height": 1281
+  },
+  "illus-crewneck-sweatshirt-red": {
+    "src": "/images/products/illus-crewneck-sweatshirt-red.jpg",
+    "width": 1600,
+    "height": 1281
+  },
+  "illus-tank-top-black": {
+    "src": "/images/products/illus-tank-top-black.jpg",
+    "width": 1433,
+    "height": 1600
+  },
+  "illus-tank-top-olive": {
+    "src": "/images/products/illus-tank-top-olive.jpg",
+    "width": 1433,
+    "height": 1600
+  },
+  "illus-bucket-hat-black": {
+    "src": "/images/products/illus-bucket-hat-black.jpg",
+    "width": 1600,
+    "height": 1600
+  },
+  "illus-bucket-hat-orange": {
+    "src": "/images/products/illus-bucket-hat-orange.jpg",
+    "width": 1600,
+    "height": 1600
+  },
+  "illus-beanie-black": {
+    "src": "/images/products/illus-beanie-black.jpg",
+    "width": 1600,
+    "height": 1600
+  },
+  "illus-beanie-red": {
+    "src": "/images/products/illus-beanie-red.jpg",
+    "width": 1600,
+    "height": 1600
   }
 } as const;
 

@@ -56,7 +56,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             </div>
           )}
           <div style={{ position: "absolute", left: 24, bottom: 24, fontSize: 18, letterSpacing: 2, textTransform: "uppercase", color: OG.bone, background: OG.ink, padding: "8px 12px", display: "flex" }}>
-            {img ? (isPhoto ? "Photograph" : "3D mockup") : "Placeholder"}
+            {img ? (isPhoto ? "Photograph" : img.kind === "render" ? "3D mockup" : "Illustration") : "Placeholder"}
           </div>
         </div>
       </div>

@@ -20,8 +20,7 @@ export const home = {
     eyebrow: "The collection",
     title: "Everything in the first drop.",
     description:
-      "A mockup where the garment hasn't been made yet, a photograph where it has, and a labelled gap where there's neither. Nothing here is invented to fill a grid.",
-    lineSheetTitle: "Also in the drop — not photographed yet",
+      "A photograph where the garment exists, a mockup where it's been rendered, and a drawn illustration where it's neither. Every image says which it is.",
   },
   story: {
     eyebrow: "Why it exists",

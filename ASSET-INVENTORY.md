@@ -122,7 +122,7 @@ founder is described wearing "Mental Toughness patterned shorts" in the parent's
 `content/founder.ts`. Shorts should probably be a ninth product.
 
 So: **1 of 8 products has a real photograph.** Three have nothing at all. Per the
-spec, those render as labelled placeholders at correct aspect ratio — do not
+spec, those render as labelled flat illustrations (scripts/illustrate-products.mjs) — do not
 invent product images to fill the grid.
 
 Design consequence: the spec already calls for an editorial layout that varies

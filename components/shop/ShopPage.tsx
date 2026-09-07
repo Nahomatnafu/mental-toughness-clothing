@@ -22,7 +22,7 @@ export function ShopPage({ category }: { category?: CategorySlug }) {
         description={
           cat
             ? cat.blurb
-            : `${products.length} pieces across two lines: the rhinestone hoodie we hold in stock, and the printed drop. ${photographed} of them ${photographed === 1 ? "is" : "are"} photographed; the rest are labelled mockups or placeholders.`
+            : `${products.length} pieces across two lines: the rhinestone hoodie we hold in stock, and the printed drop. ${photographed} of them ${photographed === 1 ? "is" : "are"} photographed; the rest are labelled mockups or illustrations.`
         }
         loadAt={0.1}
       />

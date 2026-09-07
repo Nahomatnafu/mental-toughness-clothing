@@ -81,9 +81,13 @@ export function ProductView({ product, children }: ProductViewProps) {
                   <>
                     <span className="text-paper">Photograph.</span> The garment in stock, as it is.
                   </>
-                ) : (
+                ) : current.kind === "render" ? (
                   <>
                     <span className="text-paper">3D mockup.</span> Not a photograph — the finished garment is shot before it ships.
+                  </>
+                ) : (
+                  <>
+                    <span className="text-paper">Illustration.</span> Drawn from the print spec — the finished garment is shot before it ships.
                   </>
                 )}
               </span>
