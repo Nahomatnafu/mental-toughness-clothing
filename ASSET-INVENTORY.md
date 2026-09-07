@@ -1,5 +1,20 @@
 # Asset inventory — read before writing `content/products.ts`
 
+## Update — September 7, 2026
+
+The owner approved **labeled AI concept mockups** to replace missing product
+imagery. `assets/concepts/` contains 23 generated views: front and back of black Core Tee;
+black/red Long Sleeve Tee and Crewneck; black/olive Tank; black/orange Bucket
+Hat; black/red Beanie; plus a concept back for the rhinestone hoodie. These reference the existing TM mark and proposed product
+descriptions. They are not production artwork or evidence of physical stock.
+
+`npm run images` creates optimized JPEG derivatives and manifest entries. Each
+is `kind: "concept"`, with visible AI concept labels on cards, detail pages and
+share images. Existing photos and supplied renders remain unchanged. The
+original inventory below describes the source assets before this addition;
+its missing-image restrictions are superseded only for these approved previews.
+
+
 Every file in `/assets` was opened and looked at, not just listed. The headline:
 
 > **Only one image in this repository is a photograph of a physical Mental

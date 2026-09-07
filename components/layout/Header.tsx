@@ -8,9 +8,9 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-rule bg-ink">
       <div className="mx-auto flex h-16 w-full max-w-[90rem] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
         <Wordmark />
-        <nav aria-label="Primary" className="flex items-center gap-5 sm:gap-7">
+        <nav aria-label="Primary" className="flex items-center gap-4 sm:gap-7">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="link-sweep eyebrow text-bone hover:text-paper">
+            <Link key={item.href} href={item.href} className="link-sweep eyebrow inline-flex min-h-11 items-center text-bone hover:text-paper">
               {item.label}
             </Link>
           ))}

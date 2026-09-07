@@ -50,6 +50,17 @@ for (const [src, name] of renders) {
   await jpeg(`assets/${src}.jpg`, `products/${name}.jpg`, name);
 }
 
+// --- Owner-approved AI concept previews (not production photography) -----------
+const concepts = [
+  "tee-black-front", "long-sleeve-black-front", "long-sleeve-red-front",
+  "crewneck-black-front", "crewneck-red-front", "tank-black-front", "tank-olive-front",
+  "bucket-black-front", "bucket-orange-front", "beanie-black-front", "beanie-red-front",
+];
+const conceptViews = [...concepts, ...concepts.map(name => name.replace("-front", "-back")), "rhinestone-red-back"];
+for (const name of conceptViews) {
+  await jpeg(`assets/concepts/${name}.png`, `products/concept-${name}.jpg`, `concept-${name}`);
+}
+
 // --- Tier 1: the real garment -------------------------------------------------
 // mt-hoodie-red.webp is the photograph with its backdrop already keyed to alpha
 // (485×512 — this is the ceiling of the only real product photo we hold).

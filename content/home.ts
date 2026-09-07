@@ -3,8 +3,8 @@ export const home = {
   hero: {
     headline: "Made for the days you keep going anyway.",
     lede: "Heavyweight fleece and tees from a small brand in southern Minnesota. Mental health and physical health, treated as the same work.",
-    primary: { label: "Join the waitlist", href: "#waitlist" },
-    secondary: { label: "See the collection", href: "/shop" },
+    primary: { label: "Explore the collection", href: "/shop" },
+    secondary: { label: "Join the first drop", href: "#waitlist" },
     caption: {
       lead: "Rhinestone Hoodie, red. In stock.",
       rest: "The one product photograph on this site. Everything else is a mockup, and says so.",
@@ -20,8 +20,8 @@ export const home = {
     eyebrow: "The collection",
     title: "Everything in the first drop.",
     description:
-      "A mockup where the garment hasn't been made yet, a photograph where it has, and a labelled gap where there's neither. Nothing here is invented to fill a grid.",
-    lineSheetTitle: "Also in the drop — not photographed yet",
+      "Explore the first drop, from the photographed rhinestone hoodie to printed designs and new concept previews. Every image is labelled so you can see what is real and what is still taking shape.",
+    lineSheetTitle: "Explore the upcoming pieces",
   },
   story: {
     eyebrow: "Why it exists",

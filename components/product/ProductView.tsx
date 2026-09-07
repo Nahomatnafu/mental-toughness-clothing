@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import { useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import { EmailCapture } from "@/components/forms/EmailCapture";
 import { Button } from "@/components/ui/Button";
 import { LineTag } from "@/components/ui/Tag";
-import { Placeholder } from "@/components/ui/Placeholder";
-import { imageMeta, placeholderAspect, type Product, type Size } from "@/content/products";
+import { ProductGallery } from "./ProductGallery";
+import { type Product, type Size } from "@/content/products";
 import { unitPriceFor } from "@/lib/cart";
 import { formatPrice } from "@/lib/money";
 
@@ -28,13 +27,14 @@ export function ProductView({ product, children }: ProductViewProps) {
   const firstWithImages = product.colorways.find((c) => c.images.length > 0) ?? product.colorways[0];
   const [colorwaySlug, setColorwaySlug] = useState(firstWithImages?.slug ?? "");
   const colorway = product.colorways.find((c) => c.slug === colorwaySlug) ?? firstWithImages;
-  const [view, setView] = useState(0);
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get("color");
+    if (requested && product.colorways.some(c => c.slug === requested)) setColorwaySlug(requested);
+  }, [product]);
   const [size, setSize] = useState<Size | null>(product.sizes.length === 1 ? (product.sizes[0] ?? null) : null);
   const [quantity, setQuantity] = useState(1);
   const [sizeError, setSizeError] = useState(false);
 
-  const images = colorway?.images ?? [];
-  const current = images[Math.min(view, Math.max(0, images.length - 1))];
   const price = size ? unitPriceFor(product, size) : product.price;
 
   function addToCart() {
@@ -58,61 +58,11 @@ export function ProductView({ product, children }: ProductViewProps) {
   }
 
   return (
-    <div className="grid gap-10 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-14">
+    <div className="product-detail grid gap-7 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-14">
+      <div className="mobile-product-title lg:hidden"><p className="eyebrow text-ember">{product.line === "stock" ? "The original · Rhinestone" : "Drop 01 · Print"}</p><h1 className="display mt-3 text-display-lg">{product.name}</h1><p className="eyebrow mt-3">{formatPrice(price)} USD</p></div>
       {/* ---------------- Gallery ---------------- */}
       <div className="lg:col-span-7 lg:row-start-1">
-        {current ? (
-          <figure>
-            <div className={`frame ${current.kind === "photo" ? "frame-contain" : ""}`} style={{ aspectRatio: `${imageMeta(current).width / imageMeta(current).height}` }}>
-              <Image
-                key={current.key}
-                src={imageMeta(current).src}
-                alt={current.alt}
-                width={imageMeta(current).width}
-                height={imageMeta(current).height}
-                sizes="(min-width: 1024px) 56vw, 100vw"
-                priority
-                className={current.kind === "photo" ? "h-full w-full object-contain p-[8%]" : "h-full w-full object-cover"}
-              />
-            </div>
-            <figcaption className="eyebrow mt-3 flex flex-wrap items-center justify-between gap-2 text-bone">
-              <span>
-                {current.kind === "photo" ? (
-                  <>
-                    <span className="text-paper">Photograph.</span> The garment in stock, as it is.
-                  </>
-                ) : (
-                  <>
-                    <span className="text-paper">3D mockup.</span> Not a photograph — the finished garment is shot before it ships.
-                  </>
-                )}
-              </span>
-              <span className="text-ash">
-                {colorway?.name} · {current.view}
-              </span>
-            </figcaption>
-          </figure>
-        ) : (
-          <Placeholder aspect={placeholderAspect(product)} label={`${product.name} — ${colorway?.name ?? ""}`} sub="No photograph or mockup of this colour yet" />
-        )}
-
-        {images.length > 1 ? (
-          <div className="mt-4 flex gap-3" role="group" aria-label="Views">
-            {images.map((img, i) => (
-              <button
-                key={img.key}
-                type="button"
-                onClick={() => setView(i)}
-                aria-pressed={i === view}
-                aria-label={`Show ${img.view} view`}
-                className={`frame h-20 w-16 shrink-0 border transition-colors ${i === view ? "border-paper" : "border-transparent hover:border-rule-strong"}`}
-                style={{ "--cut": "7px" } as React.CSSProperties}
-              >
-                <Image src={imageMeta(img).src} alt="" width={imageMeta(img).width} height={imageMeta(img).height} sizes="64px" className="h-full w-full object-cover" />
-              </button>
-            ))}
-          </div>
-        ) : null}
+        {colorway ? <ProductGallery key={colorway.slug} name={product.name} colorway={colorway} priority /> : null}
       </div>
 
       {/* ---------------- Description, specs, disclosures (server-rendered) -------- */}
@@ -122,9 +72,9 @@ export function ProductView({ product, children }: ProductViewProps) {
 
       {/* ---------------- Purchase panel ---------------- */}
       <div className="order-2 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1">
-        <div className="lg:sticky lg:top-24">
+        <div className="lg:sticky lg:top-24" id="product-options">
           <LineTag line={product.line} />
-          <h1 className="display mt-4 text-display-lg text-paper">{product.name}</h1>
+          <h1 className="display mt-4 hidden text-display-lg text-paper lg:block">{product.name}</h1>
           <p className="mt-3 flex items-baseline gap-3">
             <span className="display-narrow tabular text-display-sm text-paper">{formatPrice(price)}</span>
             <span className="eyebrow text-ash">USD</span>
@@ -147,7 +97,6 @@ export function ProductView({ product, children }: ProductViewProps) {
                     checked={c.slug === colorwaySlug}
                     onChange={() => {
                       setColorwaySlug(c.slug);
-                      setView(0);
                     }}
                   />
                   <label htmlFor={`${id}-colour-${c.slug}`} className="swatch" style={{ "--swatch": c.hex } as React.CSSProperties}>
@@ -204,7 +153,7 @@ export function ProductView({ product, children }: ProductViewProps) {
           </fieldset>
 
           {/* Quantity + add */}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-wrap gap-3">
             <div className="inline-flex h-12 items-stretch border border-rule-strong" role="group" aria-label="Quantity">
               <button type="button" className="w-12 text-bone hover:bg-ink-3 hover:text-paper" aria-label="Decrease quantity" onClick={() => setQuantity((q) => Math.max(1, q - 1))}>
                 −
@@ -216,7 +165,7 @@ export function ProductView({ product, children }: ProductViewProps) {
                 +
               </button>
             </div>
-            <Button onClick={addToCart} className="flex-1">
+            <Button onClick={addToCart} className="min-w-[10rem] flex-1">
               Add to cart
             </Button>
           </div>
@@ -239,6 +188,7 @@ export function ProductView({ product, children }: ProductViewProps) {
           </div>
         </div>
       </div>
+      <div className="mobile-product-bar"><div><span className="display-narrow">{product.name}</span><span className="eyebrow text-bone">{formatPrice(price)} · {colorway?.name}</span></div><button type="button" className="btn btn-primary" onClick={() => { if (size) addToCart(); else { document.getElementById(`${id}-sizes`)?.scrollIntoView({ block: "center" }); document.getElementById(`${id}-sizes`)?.focus(); } }}>{size ? "Add to cart" : "Choose size"}</button></div>
     </div>
   );
 }

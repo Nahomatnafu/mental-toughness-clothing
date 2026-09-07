@@ -51,6 +51,19 @@ client signs off. The full list of what is unconfirmed is in
 
 ### Adding a photograph
 
+All 18 product colorways now have front and back views, including 23
+owner-approved AI concept previews for the previously missing images.
+Sources live in `assets/concepts/`; `npm run images` regenerates their optimized
+JPEGs and typed manifest entries. Use `kind: "concept"` for these assets so
+cards, galleries and share images label them **AI concept preview**. They remain
+unconfirmed designs and can be replaced with approved product photography later.
+
+Product galleries support touch swipes, Front/Back controls, arrow keys, optional
+view playback and a native-dialog detail view. Cards support colour changes and
+turning the garment over. Selected card colours carry into the product page.
+Run `node scripts/check-product-images.mjs` to verify coverage and file dimensions.
+
+
 1. Drop the file in `/assets`.
 2. Add a line to [`scripts/prepare-images.mjs`](scripts/prepare-images.mjs) and run `npm run images`.
    It writes a resized derivative to `/public/images` and regenerates the manifest.

@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "test:images": "node scripts/check-product-images.mjs",
+    "test:routes": "node scripts/check-routes.mjs",
     "images": "node scripts/prepare-images.mjs",
     "trace-logo": "node scripts/trace-logo.mjs",
     "fonts": "node scripts/build-fonts.mjs"

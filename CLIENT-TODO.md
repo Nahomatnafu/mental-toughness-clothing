@@ -1,5 +1,11 @@
 # Client to-do — Mental Toughness Clothing
 
+**Imagery update, September 7, 2026:** All 11 previously empty colorways now
+have owner-approved AI concept previews. The photography tasks below still
+apply to production images. Review the concepts' colors, garment blanks and
+logo placement before using them as a manufacturing reference.
+
+
 Everything on this site that is a placeholder, an estimate, or waiting on the
 client, grouped by what needs collecting. The parent site's own list is in
 [`reference/CLIENT-TODO.md`](reference/CLIENT-TODO.md); items that affect both

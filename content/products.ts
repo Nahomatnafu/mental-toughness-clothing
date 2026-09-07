@@ -6,8 +6,9 @@
  * Two product lines exist and are NOT merged:
  *   - `line: "stock"`  — physical garments the client holds. One product: the
  *     rhinestone hoodie, the only item on this site with a real photograph.
- *   - `line: "print"`  — the print-on-demand drop. Every image is a 3D mockup
- *     render (`kind: "render"`) and is labelled as such in the UI.
+ *   - `line: "print"`  — the print-on-demand drop. Supplied 3D mockups use
+ *     `kind: "render"`; owner-approved AI previews use `kind: "concept"`.
+ *     Both are labelled separately from physical product photography.
  *
  * Every entry is a PLACEHOLDER until the client confirms it (`confirmed: false`).
  * Prices reflect Printify base costs at roughly 40–50% gross margin, positioned
@@ -20,7 +21,13 @@ import type { SizeGuideKey } from "./size-guide";
 
 export type Size = "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "One size";
 export type ProductLine = "stock" | "print";
-export type ImageKind = "photo" | "render";
+export type ImageKind = "photo" | "render" | "concept";
+
+export const imageKindLabels: Record<ImageKind, string> = {
+  photo: "Photograph",
+  render: "3D mockup",
+  concept: "AI concept preview",
+};
 export type ImageView = "front" | "back";
 
 export interface ProductImage {
@@ -122,12 +129,13 @@ export const products: readonly Product[] = [
             view: "front",
             alt: "Photograph of the red Mental Toughness rhinestone hoodie laid flat: a large TM monogram in clear rhinestones across the chest, a rhinestone US flag on the left sleeve, a rhinestone outline of the state of Minnesota on the right sleeve, and rhinestones scattered across the hood and kangaroo pocket.",
           },
+          { key: "concept-rhinestone-red-back", kind: "concept", view: "back", alt: "AI concept preview of the red rhinestone hoodie from behind, with a plain back and stones on the hood. The back design is unconfirmed; this is not a product photograph." },
         ],
       },
     ],
     notes: [
       "Price is an estimate. The client has not given a price for the rhinestone line.",
-      "Only a front photograph exists. A back and a detail shot of the stones would help.",
+      "The front is a real photograph; the back is an owner-approved AI concept. A real back photograph is still needed.",
       "Quantity on hand is unknown; the page says 'in stock' without a number.",
     ],
   },
@@ -256,7 +264,7 @@ export const products: readonly Product[] = [
         ],
         note: "Off the red-and-black palette. Rendered, not confirmed.",
       },
-      { slug: "black", name: "Black", hex: "#131316", images: [], note: "Not rendered yet." },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "concept-tee-black-front", kind: "concept", view: "front", alt: "AI concept preview of the black Core Tee with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-tee-black-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the black Core Tee on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
     ],
     notes: [
       "The only tee render is royal blue, which is off the client's red/black palette. Confirm the colourway or re-render in black.",
@@ -284,10 +292,10 @@ export const products: readonly Product[] = [
     },
     care: TEE_CARE,
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "red", name: "Red", hex: "#9C2736", images: [] },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "concept-long-sleeve-black-front", kind: "concept", view: "front", alt: "AI concept preview of the black Long Sleeve Tee with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-long-sleeve-black-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the black Long Sleeve Tee on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
+      { slug: "red", name: "Red", hex: "#9C2736", images: [{ key: "concept-long-sleeve-red-front", kind: "concept", view: "front", alt: "AI concept preview of the red Long Sleeve Tee with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-long-sleeve-red-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the red Long Sleeve Tee on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
     ],
-    notes: ["No imagery of any kind. Renders as a labelled placeholder."],
+    notes: ["AI concept previews added with owner approval. Replace with approved production images before launch."],
   },
   {
     slug: "crewneck-sweatshirt",
@@ -310,10 +318,10 @@ export const products: readonly Product[] = [
     },
     care: FLEECE_CARE,
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "red", name: "Red", hex: "#9C2736", images: [] },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "concept-crewneck-black-front", kind: "concept", view: "front", alt: "AI concept preview of the black Crewneck Sweatshirt with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-crewneck-black-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the black Crewneck Sweatshirt on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
+      { slug: "red", name: "Red", hex: "#9C2736", images: [{ key: "concept-crewneck-red-front", kind: "concept", view: "front", alt: "AI concept preview of the red Crewneck Sweatshirt with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-crewneck-red-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the red Crewneck Sweatshirt on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
     ],
-    notes: ["No imagery of any kind. Renders as a labelled placeholder."],
+    notes: ["AI concept previews added with owner approval. Replace with approved production images before launch."],
   },
   {
     slug: "fleece-joggers",
@@ -418,7 +426,7 @@ export const products: readonly Product[] = [
     confirmed: false,
     summary: "Lightweight cotton tank, monogram at the chest.",
     description:
-      "Lightweight cotton tank with a relaxed drape and a low-cut armhole. The TM monogram is printed small at the centre chest. It is the one the founder wears in the photograph on the About page.",
+      "Lightweight cotton tank with a relaxed drape and a low-cut armhole. The TM monogram is printed small at the centre chest. Shown as a concept preview; the final blank, fit and print are still to be confirmed.",
     details: {
       fabric: "Lightweight cotton jersey.", // PLACEHOLDER
       fit: "Relaxed, low armhole.",
@@ -426,10 +434,10 @@ export const products: readonly Product[] = [
     },
     care: TEE_CARE,
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "olive", name: "Olive", hex: "#5A5B45", images: [], note: "Seen on the founder. Not confirmed for the drop." },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "concept-tank-black-front", kind: "concept", view: "front", alt: "AI concept preview of the black Tank Top with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-tank-black-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the black Tank Top on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
+      { slug: "olive", name: "Olive", hex: "#5A5B45", images: [{ key: "concept-tank-olive-front", kind: "concept", view: "front", alt: "AI concept preview of the olive Tank Top with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-tank-olive-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the olive Tank Top on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
     ],
-    notes: ["No product shot. Visible on the founder in millz_01.png only."],
+    notes: ["AI concept previews, not photos of the founder's tank. Production design remains unconfirmed."],
   },
   {
     slug: "bucket-hat",
@@ -454,10 +462,10 @@ export const products: readonly Product[] = [
     },
     care: ["Spot clean with cold water and mild soap.", "Reshape and air dry. Do not machine wash."],
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "orange", name: "Orange", hex: "#FE732E", images: [], note: "The founder's. Not confirmed for the drop." },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "concept-bucket-black-front", kind: "concept", view: "front", alt: "AI concept preview of the black Bucket Hat with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-bucket-black-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the black Bucket Hat on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
+      { slug: "orange", name: "Orange", hex: "#FE732E", images: [{ key: "concept-bucket-orange-front", kind: "concept", view: "front", alt: "AI concept preview of the orange Bucket Hat with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-bucket-orange-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the orange Bucket Hat on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
     ],
-    notes: ["Replaces the brief's 'Dad Hat'. No product shot; the hat is visible on the founder in millz_01.png."],
+    notes: ["Replaces the brief's 'Dad Hat'. AI concept previews; not photographs of the founder's hat."],
   },
   {
     slug: "beanie",
@@ -480,10 +488,10 @@ export const products: readonly Product[] = [
     },
     care: ["Hand wash cold. Lay flat to dry.", "Do not bleach, tumble dry, or iron."],
     colorways: [
-      { slug: "black", name: "Black", hex: "#131316", images: [] },
-      { slug: "red", name: "Red", hex: "#9C2736", images: [] },
+      { slug: "black", name: "Black", hex: "#131316", images: [{ key: "concept-beanie-black-front", kind: "concept", view: "front", alt: "AI concept preview of the black Beanie with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-beanie-black-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the black Beanie on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
+      { slug: "red", name: "Red", hex: "#9C2736", images: [{ key: "concept-beanie-red-front", kind: "concept", view: "front", alt: "AI concept preview of the red Beanie with the TM monogram on a charcoal studio background. Proposed design; final garment may differ." }, { key: "concept-beanie-red-back", kind: "concept", view: "back", alt: "AI concept preview of the plain back of the red Beanie on a charcoal studio background. Proposed design; final garment may differ." }], note: "Concept preview. Colour and production design are not confirmed." },
     ],
-    notes: ["No imagery of any kind. Renders as a labelled placeholder."],
+    notes: ["AI concept previews added with owner approval. Replace with approved production images before launch."],
   },
 ];
 
@@ -505,11 +513,11 @@ export function getProductsByLine(line: ProductLine): Product[] {
   return sortedProducts.filter((p) => p.line === line);
 }
 
-/** The first image of the first colourway that has one, or undefined. */
+/** Selected colourway only when specified; otherwise the first available image. */
 export function primaryImage(product: Product, colorwaySlug?: string): ProductImage | undefined {
   if (colorwaySlug) {
     const cw = product.colorways.find((c) => c.slug === colorwaySlug);
-    if (cw?.images[0]) return cw.images[0];
+    return cw?.images[0];
   }
   for (const cw of product.colorways) {
     if (cw.images[0]) return cw.images[0];

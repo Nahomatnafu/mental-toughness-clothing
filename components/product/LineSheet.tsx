@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getCategory } from "@/content/categories";
-import { hasImagery, hasPhotograph, type Product } from "@/content/products";
+import { type Product } from "@/content/products";
+import { imageKindLabel } from "./ProductImage";
 import { formatPrice } from "@/lib/money";
 
 /**
@@ -11,7 +12,7 @@ export function LineSheet({ products, className = "" }: { products: readonly Pro
   return (
     <ul className={`border-y border-rule divide-y divide-rule ${className}`}>
       {products.map((p) => {
-        const status = p.line === "stock" ? "In stock" : hasPhotograph(p) ? "Photographed" : hasImagery(p) ? "3D mockup" : "Not photographed yet";
+        const status = p.line === "stock" ? "In stock" : imageKindLabel(p);
         return (
           <li key={p.slug}>
             <Link

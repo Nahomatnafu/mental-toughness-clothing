@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Placeholder } from "@/components/ui/Placeholder";
-import { imageMeta, placeholderAspect, primaryImage, type Product, type ProductImage as ProductImageT } from "@/content/products";
+import { imageKindLabels, imageMeta, placeholderAspect, primaryImage, type Product, type ProductImage as ProductImageT } from "@/content/products";
 
 interface ProductImageProps {
   product: Product;
@@ -37,7 +37,7 @@ export function ProductImage({ product, image, colorway, sizes, priority, classN
         height={meta.height}
         sizes={sizes}
         priority={priority}
-        className={isPhoto ? "h-full w-full object-contain p-[8%]" : "h-full w-full object-cover"}
+        className={isPhoto ? "h-full w-full object-contain p-[8%]" : "h-full w-full object-contain"}
       />
     </div>
   );
@@ -46,5 +46,5 @@ export function ProductImage({ product, image, colorway, sizes, priority, classN
 export function imageKindLabel(product: Product, colorway?: string): string {
   const img = primaryImage(product, colorway);
   if (!img) return "Not photographed yet";
-  return img.kind === "photo" ? "Photograph" : "3D mockup";
+  return imageKindLabels[img.kind];
 }

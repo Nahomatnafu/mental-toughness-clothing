@@ -8,11 +8,11 @@ export function CategoryNav({ active }: { active?: CategorySlug }) {
     ...categories.map((c) => ({ href: `/shop/${c.slug}`, label: c.name, count: getProductsByCategory(c.slug).length, slug: c.slug as CategorySlug | undefined })),
   ];
   return (
-    <nav aria-label="Filter by category" className="flex flex-wrap gap-x-6 gap-y-3">
+    <nav aria-label="Filter by category" className="category-nav">
       {items.map((item) => {
         const current = item.slug === active;
         return (
-          <Link key={item.href} href={item.href} aria-current={current ? "page" : undefined} className={`link-sweep eyebrow ${current ? "text-paper" : "text-bone hover:text-paper"}`}>
+          <Link key={item.href} href={item.href} aria-current={current ? "page" : undefined} className={`category-pill eyebrow ${current ? "category-active" : ""}`}>
             {item.label} <span className="tabular text-ash">{item.count}</span>
           </Link>
         );

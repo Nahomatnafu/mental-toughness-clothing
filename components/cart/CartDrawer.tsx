@@ -24,6 +24,13 @@ export function CartDrawer() {
     closeRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && !checkoutOpen) close();
+      if (e.key === "Tab" && !checkoutOpen) {
+        const focusable = Array.from(panelRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex="0"]') ?? []).filter(el => el.offsetParent !== null);
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
     };
     document.addEventListener("keydown", onKey);
     const prevOverflow = document.body.style.overflow;
@@ -46,6 +53,7 @@ export function CartDrawer() {
         aria-modal="true"
         aria-labelledby="cart-title"
         aria-hidden={!isOpen}
+        inert={!isOpen || checkoutOpen}
       >
         <div className="flex items-center justify-between border-b border-rule px-6 py-5">
           <h2 id="cart-title" className="display-narrow text-display-sm text-paper">
@@ -63,7 +71,7 @@ export function CartDrawer() {
         </div>
 
         <p className="sr-only" role="status" aria-live="polite">
-          {lastAdded && isOpen ? `${lastAdded} added to cart.` : ""}
+          {lastAdded && isOpen && count > 0 ? `${lastAdded} added to cart.` : ""}
         </p>
 
         <div className="flex-1 overflow-y-auto px-6">
@@ -90,12 +98,13 @@ export function CartDrawer() {
                     <div className="flex flex-1 flex-col">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <Link href={`/product/${line.slug}`} onClick={close} className="display-narrow text-display-xs text-paper hover:text-ember" tabIndex={isOpen ? 0 : -1}>
+                          <Link href={`/product/${line.slug}?color=${line.colorway.slug}`} onClick={close} className="display-narrow text-display-xs text-paper hover:text-ember" tabIndex={isOpen ? 0 : -1}>
                             {line.name}
                           </Link>
                           <p className="eyebrow mt-1 text-bone">
                             {line.colorway.name} · {line.size}
                           </p>
+                          {line.imageKey?.startsWith("concept-") ? <p className="eyebrow mt-1 text-ash">AI concept preview</p> : null}
                         </div>
                         <p className="eyebrow tabular text-paper">{formatPrice(line.unitPrice * line.quantity)}</p>
                       </div>

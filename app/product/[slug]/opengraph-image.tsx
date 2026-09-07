@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { OG, OG_CHARS, loadGoogleFont, publicImageDataUrl } from "@/lib/og";
-import { getProduct, imageMeta, lineLabel, primaryImage, products } from "@/content/products";
+import { getProduct, imageKindLabels, imageMeta, lineLabel, primaryImage, products } from "@/content/products";
 import { site } from "@/content/site";
 import { formatPrice } from "@/lib/money";
 
@@ -49,14 +49,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         </div>
         <div style={{ width: 460, display: "flex", alignItems: "center", justifyContent: "center", background: isPhoto ? OG.ink2 : OG.ink, position: "relative" }}>
           {photo ? (
-            <img src={photo} alt="" style={{ width: isPhoto ? 380 : 460, height: isPhoto ? 400 : 630, objectFit: isPhoto ? "contain" : "cover" }} />
+            <img src={photo} alt="" style={{ width: isPhoto ? 380 : 460, height: isPhoto ? 400 : 630, objectFit: isPhoto || img?.kind === "concept" ? "contain" : "cover" }} />
           ) : (
             <div style={{ display: "flex", flexDirection: "column", width: 460, height: 630, background: OG.ink2, color: OG.bone, fontSize: 20, letterSpacing: 2, textTransform: "uppercase", justifyContent: "flex-end", padding: 40 }}>
               Not photographed yet
             </div>
           )}
           <div style={{ position: "absolute", left: 24, bottom: 24, fontSize: 18, letterSpacing: 2, textTransform: "uppercase", color: OG.bone, background: OG.ink, padding: "8px 12px", display: "flex" }}>
-            {img ? (isPhoto ? "Photograph" : "3D mockup") : "Placeholder"}
+            {img ? imageKindLabels[img.kind] : "Placeholder"}
           </div>
         </div>
       </div>

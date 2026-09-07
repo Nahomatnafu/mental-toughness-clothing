@@ -1,21 +1,19 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { ProductCard } from "@/components/product/ProductCard";
-import { LineSheet } from "@/components/product/LineSheet";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { home } from "@/content/home";
-import { getProduct, hasImagery, sortedProducts } from "@/content/products";
+import { getProduct, sortedProducts } from "@/content/products";
 import { formatPrice } from "@/lib/money";
 
 /**
- * Editorial grid for what has imagery; a line sheet for what does not. The
- * grid varies scale (5/4/3 columns) so three items read as a composition,
- * not a template.
+ * Lead with three supplied mockups, then show the remaining upcoming pieces.
+ * Membership is independent of image availability so new images never hide items.
  */
 export function Collection() {
   const shown = ["core-tee", "fleece-joggers", "sweat-shorts"].map(getProduct).filter((p): p is NonNullable<typeof p> => Boolean(p));
   const spans = [5, 4, 3];
-  const rest = sortedProducts.filter((p) => !hasImagery(p));
+  const rest = sortedProducts.filter((p) => p.line === "print" && p.slug !== "heavyweight-hoodie" && !shown.some((featured) => featured.slug === p.slug));
   const stock = getProduct("rhinestone-hoodie");
 
   return (
@@ -33,9 +31,9 @@ export function Collection() {
           }
         />
 
-        <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-12 lg:items-end">
+        <div className="collection-rail mt-8 lg:mt-14">
           {shown.map((p, i) => (
-            <ProductCard key={p.slug} product={p} span={spans[i] ?? 4} className={`lg:col-span-${spans[i] ?? 4} ${i === 2 ? "sm:col-span-2 lg:col-span-3" : ""}`} />
+            <ProductCard key={p.slug} product={p} span={spans[i] ?? 4} className={i === 0 ? "lg:col-span-5" : i === 1 ? "lg:col-span-4" : "lg:col-span-3"} />
           ))}
         </div>
 
@@ -52,7 +50,9 @@ export function Collection() {
           ) : null}
           <div className="lg:col-span-8">
             <p className="eyebrow text-bone">{home.collection.lineSheetTitle}</p>
-            <LineSheet products={rest} className="mt-3" />
+            <div className="mt-5 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5">
+              {rest.map((p) => <ProductCard key={p.slug} product={p} span={4} />)}
+            </div>
           </div>
         </div>
       </Container>
