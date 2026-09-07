@@ -1,0 +1,46 @@
+{
+  "name": "mental-toughness-clothing",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Storefront for Mental Toughness Clothing \u2014 a Millz Global LLC brand, Minnesota.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "images": "node scripts/prepare-images.mjs",
+    "trace-logo": "node scripts/trace-logo.mjs",
+    "fonts": "node scripts/build-fonts.mjs"
+  },
+  "dependencies": {
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "resend": "^6.0.0",
+    "sharp": "^0.34.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.5.0",
+    "potrace": "^2.1.8",
+    "subset-font": "^2.7.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "browserslist": [
+    "chrome 111",
+    "edge 111",
+    "firefox 111",
+    "safari 16.4",
+    "ios_saf 16.4"
+  ]
+}
