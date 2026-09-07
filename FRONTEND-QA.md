@@ -20,7 +20,14 @@ Executed in the connected Chromium browser using actual page controls:
 
 The touch swipe handler is implemented with Pointer Events; desktop arrow/button controls and the same view-state transitions were exercised. Physical iOS/Android touch testing remains a useful release check.
 
-## Scope
+## Vercel verification
+
+- Public URL: https://mental-toughness-clothing.vercel.app
+- The live deployment passed all 19 page routes, 11 share images and the missing-product 404 check without authentication.
+- Live browser check: the red Long Sleeve Tee retains its color, switches to its back image and adds size M to the cart with a $40 subtotal.
+- Vercel tracks `codex/storefront-improvements`; the repository's `main` branch is unchanged. `NEXT_PUBLIC_SITE_URL` is set to the public Vercel URL for production share previews.
+
+## Backend scope
 
 This is a frontend preview. Checkout remains a notification dialog. No payment,
 fulfillment or real email delivery was tested or enabled. Existing product prices,
