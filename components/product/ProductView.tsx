@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState, type ReactNode } from "react";
+import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
 import { EmailCapture } from "@/components/forms/EmailCapture";
 import { Button } from "@/components/ui/Button";
@@ -8,6 +9,7 @@ import { ProductGallery } from "./ProductGallery";
 import { type Product, type Size } from "@/content/products";
 import { unitPriceFor } from "@/lib/cart";
 import { formatPrice } from "@/lib/money";
+import { eliteHoodies } from "@/content/elite-hoodies";
 
 interface ProductViewProps {
   product: Product;
@@ -22,6 +24,7 @@ interface ProductViewProps {
 export function ProductView({ product, children }: ProductViewProps) {
   const id = useId();
   const { dispatch } = useCart();
+  const eliteDesign = eliteHoodies.find(d => d.slug === product.slug);
 
   const firstWithImages = product.colorways.find((c) => c.images.length > 0) ?? product.colorways[0];
   const [colorwaySlug, setColorwaySlug] = useState(firstWithImages?.slug ?? "");
@@ -64,7 +67,7 @@ export function ProductView({ product, children }: ProductViewProps) {
       <div className="mobile-product-title lg:hidden"><h1 className="display text-display-lg">{product.name}</h1><p className="eyebrow mt-3">{product.priceVaries && !selectedSize ? "From " : ""}{formatPrice(price)} USD</p></div>
       {/* ---------------- Gallery ---------------- */}
       <div className="lg:col-span-7 lg:row-start-1">
-        {colorway ? <ProductGallery key={colorway.slug} name={product.name} colorway={colorway} priority /> : null}
+        {colorway ? <ProductGallery key={product.slug + colorway.slug} name={product.name} colorway={colorway} priority /> : null}
       </div>
 
       {/* ---------------- Description, specs, disclosures (server-rendered) -------- */}
@@ -82,10 +85,12 @@ export function ProductView({ product, children }: ProductViewProps) {
           </p>
           <p className="mt-4 text-body text-bone">{product.summary}</p>
 
+          {eliteDesign ? <div className="mt-7"><p className="label">Logo color — {eliteDesign.name}</p><div className="flex flex-wrap gap-2" role="group" aria-label="Logo color">{eliteHoodies.map(design => <Link key={design.slug} className={`explorer-swatch eyebrow ${design.slug === product.slug ? "border-paper bg-ink-3" : ""}`} aria-current={design.slug === product.slug ? "page" : undefined} href={`/product/${design.slug}?color=${design.colors.some(c => c === colorwaySlug) ? colorwaySlug : "black"}`}><i style={{ background: design.hex }} />{design.name}</Link>)}</div></div> : null}
+
           {/* Colourway */}
           <fieldset className="mt-8">
             <legend className="label">
-              Colour <span className="text-paper">— {colorway?.name}</span>
+              {eliteDesign ? "Hoodie color" : "Color"} <span className="text-paper">— {colorway?.name}</span>
             </legend>
             <div className="flex flex-wrap gap-2">
               {product.colorways.map((c) => (
