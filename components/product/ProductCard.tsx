@@ -8,6 +8,7 @@ import { formatPrice } from "@/lib/money";
 
 interface ProductCardProps {
   product: Product;
+  initialColorway?: string;
   /** Grid columns of 12 this card occupies at `lg`. Drives `sizes`. */
   span?: number;
   priority?: boolean;
@@ -15,8 +16,8 @@ interface ProductCardProps {
   className?: string;
 }
 
-export function ProductCard({ product, span = 4, priority, headingLevel: H = "h3", className = "" }: ProductCardProps) {
-  const [colour, setColour] = useState(product.colorways[0]?.slug ?? "");
+export function ProductCard({ product, initialColorway, span = 4, priority, headingLevel: H = "h3", className = "" }: ProductCardProps) {
+  const [colour, setColour] = useState(product.colorways.find(c => c.slug === initialColorway)?.slug ?? product.colorways[0]?.slug ?? "");
   const [back, setBack] = useState(false);
   const colorway = product.colorways.find(c => c.slug === colour) ?? product.colorways[0];
   const image = colorway?.images.find(i => i.view === (back ? "back" : "front")) ?? colorway?.images[0];
