@@ -36,7 +36,7 @@ export function ProductGallery({ name, colorway, priority = false }: { name: str
   function select(i: number) { setPlaying(false); setIndex((i + count) % count); }
   const disclosure = current.kind === "concept"
     ? "Proposed design. Final colour, fit and artwork may differ."
-    : current.kind === "photo" ? "The physical garment, photographed as it is." : "Design mockup. Production details are still being confirmed.";
+    : current.kind === "catalog" ? "" : current.kind === "photo" ? "" : "Design mockup.";
   const controls = (label: string) => (
     <div className="gallery-controls">
       <div className="view-switch" role="group" aria-label={label}>
@@ -48,7 +48,7 @@ export function ProductGallery({ name, colorway, priority = false }: { name: str
 
   return (
     <div className="product-gallery">
-      <div className="gallery-topline eyebrow"><span>{colorway.name} / {String(index + 1).padStart(2, "0")}</span><span>{imageKindLabels[current.kind]}</span></div>
+      <div className="gallery-topline eyebrow"><span>{colorway.name}</span><span>{current.view}</span></div>
       <div className="gallery-stage" role="group" aria-label={`${name} image gallery`} onKeyDown={e => {
         if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); select(index + (e.key === "ArrowRight" ? 1 : -1)); }
       }}>
@@ -70,15 +70,14 @@ export function ProductGallery({ name, colorway, priority = false }: { name: str
           <button type="button" className="gallery-arrow gallery-arrow-next" aria-label="Next view" onClick={() => select(index + 1)}>→</button>
         </> : null}
       </div>
-      {controls("Product views")}
-      <p className="gallery-caption" aria-live={playing ? "off" : "polite"}><strong>{imageKindLabels[current.kind]}.</strong> {disclosure}</p>
-      {count > 1 ? <p className="eyebrow mt-3 text-ash">Swipe to turn · Tap to explore</p> : null}
+      {count > 1 ? controls("Product views") : null}
+      {disclosure ? <p className="gallery-caption" aria-live={playing ? "off" : "polite"}><strong>{imageKindLabels[current.kind]}.</strong> {current.kind === "concept" ? disclosure : ""}</p> : null}
 
       <dialog ref={dialog} className="product-lightbox" aria-labelledby={`${id}-title`} onClose={() => { setExpanded(false); setPlaying(false); }} onCancel={() => { setExpanded(false); setPlaying(false); }}>
         <div className="lightbox-heading"><h2 id={`${id}-title`} className="display-narrow">{name} / {colorway.name}</h2><button type="button" className="lightbox-close eyebrow" onClick={() => { setPlaying(false); setExpanded(false); }}>Close ✕</button></div>
         {expanded ? <Image src={meta.src} alt={current.alt} width={meta.width} height={meta.height} sizes="(min-width: 1024px) 80vw, 100vw" className="lightbox-image" /> : null}
-        {controls("Enlarged product views")}
-        <p className="gallery-caption"><strong>{imageKindLabels[current.kind]}.</strong> {disclosure}</p>
+        {count > 1 ? controls("Enlarged product views") : null}
+        {disclosure ? <p className="gallery-caption"><strong>{imageKindLabels[current.kind]}.</strong> {current.kind === "concept" ? disclosure : ""}</p> : null}
       </dialog>
     </div>
   );

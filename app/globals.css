@@ -188,8 +188,8 @@
 
 @theme inline {
   --font-display: var(--font-mona), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: var(--font-literata), Georgia, "Times New Roman", serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-body: var(--font-mona), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-mona), "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* ---------------------------------------------------------------------------
@@ -203,15 +203,15 @@
     --accent: var(--color-ember);
     --accent-fill: var(--color-brick);
     /* Literata is set 30 units heavier reversed on dark (parent §3.1). */
-    --body-weight: 430;
+    --body-weight: 500;
     /* one cut corner, the hangtag. Buttons and frames share it. */
     --cut: 12px;
   }
   @media (min-width: 48rem) {
-    :root { --display-wdth: 110; }
+    :root { --display-wdth: 100; }
   }
   @media (min-width: 64rem) {
-    :root { --display-wdth: 116; }
+    :root { --display-wdth: 100; }
   }
 
   html {
@@ -278,8 +278,8 @@
   font-weight: 500;
   font-size: var(--text-mono);
   line-height: var(--text-mono--line-height);
-  letter-spacing: var(--text-mono--letter-spacing);
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
 }
 @utility text-accent { color: var(--accent); }
 @utility bg-accent-fill { background-color: var(--accent-fill); }
@@ -644,4 +644,35 @@
   .spec-table th, .spec-table td { text-align: left; padding: 0.6rem 0.75rem 0.6rem 0; border-bottom: 1px solid var(--color-rule); font-variant-numeric: tabular-nums; white-space: nowrap; }
   .spec-table th { color: var(--color-bone); font-weight: 500; text-transform: uppercase; font-size: var(--text-mono); letter-spacing: var(--text-mono--letter-spacing); }
   .spec-table td:first-child { color: var(--color-paper); }
+}
+
+/* Client draft: quiet labels, comfortable reading, and aligned product grids. */
+@layer components {
+  .hero-headline { line-height: 1.04; letter-spacing: -.045em; }
+  .hero-art { border-radius: 8px; }
+  .hero-product { display: block; height: 22rem; padding: 1rem 1rem 5.5rem; }
+  .hero-garment { width: 100%; height: 100%; }
+  .hero-product-label .eyebrow { font-size: 1rem; font-weight: 600; }
+  .hero-product-label p { color: var(--color-bone); font-weight: 500; }
+  .brand-ribbon { font-size: .8rem; }
+  .card-title { font-size: clamp(.95rem, 1.2vw, 1.15rem); line-height: 1.35; letter-spacing: -.015em; }
+  .card-colours { display: block; }
+  .card-swatches { display: flex; overflow-x: auto; padding-block: 4px; scrollbar-width: thin; scrollbar-color: var(--color-rule-strong) transparent; }
+  .card-swatch { flex-shrink: 0; }
+  .card-colours > span { display: block; font-size: .75rem; min-height: 2.4em; margin-bottom: .45rem; }
+  .card-kind { font-size: .7rem; }
+  .card-visual .frame { clip-path: none; border-radius: 6px; }
+  .gallery-stage { overflow: hidden; border-radius: 6px; }
+  .gallery-topline { font-size: .8rem; text-transform: capitalize; }
+  .view-switch button { text-transform: capitalize; font-size: .8rem; }
+  .gallery-play { font-size: .8rem; }
+  .label { text-transform: none; letter-spacing: .01em; font-size: .8rem; }
+  .chip:has(+ input:disabled), input:disabled + .chip { opacity: .35; text-decoration: line-through; cursor: not-allowed; }
+  .mobile-product-bar > div > .display-narrow { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .product-detail h1 { font-size: clamp(1.85rem, 3.2vw, 3.2rem); line-height: 1.12; letter-spacing: -.03em; }
+  .section-heading h2 { font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.12; }
+  @media (min-width: 64rem) {
+    .hoodie-explorer { grid-template-columns: 1fr 1fr; }
+    .hero-product { height: 37rem; padding: 2rem 1.5rem 6rem; }
+  }
 }

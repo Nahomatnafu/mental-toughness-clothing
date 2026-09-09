@@ -16,17 +16,19 @@
  * `sizeUpcharge` field exists for that and is null until the blanks are chosen.
  */
 import { images, type ImageKey } from "./image-manifest";
+import { catalogProducts } from "./catalog-products";
 import type { CategorySlug } from "./categories";
 import type { SizeGuideKey } from "./size-guide";
 
-export type Size = "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "One size";
+export type Size = "XS" | "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "4XL" | "5XL" | "One size";
 export type ProductLine = "stock" | "print";
-export type ImageKind = "photo" | "render" | "concept";
+export type ImageKind = "photo" | "render" | "concept" | "catalog";
 
 export const imageKindLabels: Record<ImageKind, string> = {
   photo: "Photograph",
   render: "3D mockup",
   concept: "AI concept preview",
+  catalog: "Product image",
 };
 export type ImageView = "front" | "back";
 
@@ -38,6 +40,7 @@ export interface ProductImage {
 }
 
 export interface Colorway {
+  variants?: readonly { size: Size; price: number; available: boolean; sourceId: string }[];
   slug: string;
   name: string;
   /** Swatch colour. For the brand red this is the sampled garment value. */
@@ -49,6 +52,9 @@ export interface Colorway {
 }
 
 export interface Product {
+  source?: { url: string; checkedAt: string };
+  priceVaries?: boolean;
+  sizeChart?: { sizes: readonly string[]; rows: readonly { label: string; values: readonly string[] }[] };
   slug: string;
   name: string;
   category: CategorySlug;
@@ -90,6 +96,7 @@ const TEE_CARE = [
 
 // PLACEHOLDER — confirm with client. All ten entries.
 export const products: readonly Product[] = [
+  ...catalogProducts,
   {
     slug: "rhinestone-hoodie",
     name: "Rhinestone Hoodie",
@@ -562,6 +569,6 @@ export function nextProduct(slug: string): Product {
 }
 
 export const lineLabel: Record<ProductLine, string> = {
-  stock: "In stock · rhinestone",
-  print: "Drop 01 · print",
+  stock: "Rhinestone",
+  print: "Printed apparel",
 };

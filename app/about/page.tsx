@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "About",
-  description: "Where Mental Toughness Clothing comes from, why it shares a company with a training business, and what it isn't.",
+  description: "Mental health awareness, resilience, and active living. Get to know Mental Toughness Clothing.",
   path: "/about",
 });
 
@@ -41,15 +41,6 @@ export default function AboutPage() {
                 ))}
               </div>
 
-              {i === 0 ? (
-                // PLACEHOLDER — the founder's own words. Deliberately visible. See CLIENT-TODO.md §2.
-                <aside aria-label="Founder's paragraph, not yet written" className="hatch measure mt-8 border border-rule-strong p-6">
-                  <p className="eyebrow text-ember">Placeholder</p>
-                  <p className="display-narrow mt-2 text-display-xs text-paper">{about.founderPlaceholder.label}</p>
-                  <p className="mt-3 text-body-sm text-bone">{about.founderPlaceholder.body}</p>
-                </aside>
-              ) : null}
-
               {i === about.sections.length - 1 ? (
                 <p className="measure mt-6 border-l-2 border-ember pl-5 text-body text-paper">
                   {about.crisis.lead}{" "}
@@ -60,14 +51,6 @@ export default function AboutPage() {
               ) : null}
             </section>
           ))}
-
-          <section aria-labelledby="in-person" className="mt-14">
-            <h2 id="in-person" className="display text-display-md text-paper">
-              {about.inPerson.heading}
-            </h2>
-            <Beam loadAt={0.12} sag={8} className="mt-4" />
-            <p className="measure mt-6 text-body text-bone">{about.inPerson.body}</p>
-          </section>
         </div>
 
         <aside className="lg:col-span-4 lg:col-start-9">

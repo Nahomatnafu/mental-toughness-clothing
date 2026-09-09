@@ -1,15 +1,19 @@
 // Run against a local production server or the deployed preview.
 // This checks HTTP/rendering; interactive browser scenarios are in FRONTEND-QA.md.
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 
 const base = process.env.TEST_BASE_URL ?? "http://localhost:3000";
 const slugs = ["rhinestone-hoodie", "heavyweight-hoodie", "core-tee", "long-sleeve-tee", "crewneck-sweatshirt", "fleece-joggers", "sweat-shorts", "tank-top", "bucket-hat", "beanie"];
+const catalog = JSON.parse((await readFile("assets/catalog-source.json", "utf8")).replace(/^\uFEFF/, ""));
+slugs.push(...catalog.products.map(p=>p.handle));
 const routes = ["/", "/shop", "/shop/fleece", "/shop/tees", "/shop/bottoms", "/shop/headwear", "/about", "/contact", "/privacy", ...slugs.map(s => `/product/${s}`)];
 const imagePaths = new Set();
 for (const route of routes) {
   const response = await fetch(new URL(route, base));
   assert.equal(response.status, 200, `${route} should render`);
   const html = await response.text();
+  assert.doesNotMatch(html, />[^<]*(?:Drop 01|The original \/ 001|the lead piece|Millz.s paragraph)[^<]*</i);
   assert.match(html, /<h1\b/, `${route} should have a page heading`);
   assert.doesNotMatch(html, /Application error: a (client|server)-side exception/);
   const image = html.match(/property="og:image" content="([^"]+)"/)?.[1];

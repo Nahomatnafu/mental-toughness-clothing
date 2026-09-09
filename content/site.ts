@@ -9,7 +9,7 @@ export const site = {
   /** The brand's own words, from the STAY STRONG badge on the joggers and shorts. */
   tagline: "Stay strong.",
   description:
-    "Mental-health-awareness streetwear from southern Minnesota. Heavyweight fleece and tees, made for the days you keep going anyway.",
+    "Everyday clothing for mental health awareness, resilience, and active living. Shop Mental Toughness tees, hoodies, and more.",
   // PLACEHOLDER — the parent site already points the apparel division here, but
   // the client has not confirmed what is at this domain. See CLIENT-TODO.md §1.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mentaltoughnessclothing.shop",
@@ -48,7 +48,7 @@ export const site = {
   inPerson: ["River Hills Mall, Mankato", "County fairs across southern Minnesota"],
 
   drop: {
-    name: "Drop 01",
+    name: "Mental Toughness news",
     /** "waitlist" until Phase 2 ships. Nothing on the site takes money while this is "waitlist". */
     status: "waitlist" as "waitlist" | "open",
     /** Deliberately no date: none has been set. The copy says so. */

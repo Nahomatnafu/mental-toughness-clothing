@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Shop",
-  description: "Every piece in the first drop: heavyweight fleece, boxy tees, joggers and shorts, plus the rhinestone hoodie in stock. Prices in USD, sizes S–3XL.",
+  description: "Explore Mental Toughness tees, hoodies, and everyday apparel. Choose your favorite colors and styles.",
   path: "/shop",
 });
 

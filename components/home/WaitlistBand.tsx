@@ -25,8 +25,8 @@ export function WaitlistBand() {
             <p className="mt-5 max-w-[46ch] text-body text-paper/90">{home.waitlist.description}</p>
           </div>
           <div className="lg:col-span-5">
-            <EmailCapture source="waitlist" label="Join the waitlist" tone="paper" />
-            <p className="eyebrow mt-4 text-paper/90">One email at the drop. Unsubscribe in one click.</p>
+            <EmailCapture source="waitlist" label="Sign up" tone="paper" />
+            <p className="eyebrow mt-4 text-paper/90">Unsubscribe anytime.</p>
           </div>
         </div>
         <Beam loadAt={0.1} tone="paper" className="mt-14 opacity-70" />

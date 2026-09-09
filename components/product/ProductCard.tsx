@@ -32,14 +32,14 @@ export function ProductCard({ product, span = 4, priority, headingLevel: H = "h3
         {canTurn ? <button type="button" className="card-turn eyebrow" onClick={() => setBack(b => !b)} aria-label={`Show ${back ? "front" : "back"} of ${product.name}`}><span aria-hidden="true">↻</span> {back ? "Front" : "Back"}</button> : null}
       </div>
       <div className="card-colours" role="group" aria-label={`${product.name} colours`}>
-        {product.colorways.map(c => <button key={c.slug} type="button" className="card-swatch" aria-label={`${product.name} in ${c.name}`} aria-pressed={c.slug === colour} onClick={() => setColour(c.slug)}><span style={{ background: c.hex }} /></button>)}
+        <div className="card-swatches">{product.colorways.map(c => <button key={c.slug} type="button" className="card-swatch" aria-label={`${product.name} in ${c.name}`} aria-pressed={c.slug === colour} onClick={() => setColour(c.slug)}><span style={{ background: c.hex }} /></button>)}</div>
         <span className="eyebrow text-bone">{colorway?.name}</span>
       </div>
       <Link href={`/product/${product.slug}?color=${colour}`} className="group block">
         <H className="display-narrow card-title text-paper group-hover:text-ember">{product.name}</H>
-        <p className="eyebrow mt-2 text-paper">{formatPrice(product.price)}</p>
+        <p className="eyebrow mt-2 text-paper">{product.priceVaries ? "From " : ""}{formatPrice(colorway?.variants?.length ? Math.min(...colorway.variants.map(v=>v.price)) : product.price)}</p>
       </Link>
-      <p className="card-kind eyebrow text-bone" aria-live="polite">{image ? imageKindLabels[image.kind] : "Image coming soon"}</p>
+      {image?.kind !== "catalog" && image?.kind !== "photo" ? <p className="card-kind eyebrow text-bone" aria-live="polite">{image ? imageKindLabels[image.kind] : "Image coming soon"}</p> : null}
     </article>
   );
 }

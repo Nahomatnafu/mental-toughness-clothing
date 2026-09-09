@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useCart } from "./CartProvider";
 import { EmailCapture } from "@/components/forms/EmailCapture";
 import { describeCart } from "@/lib/cart";
-import { site } from "@/content/site";
+
 
 /**
  * Phase 1 checkout: nothing takes money. The modal says so plainly and
@@ -27,13 +27,12 @@ export function CheckoutModal({ onClose }: { onClose: () => void }) {
   return (
     <div className="modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="p-7 sm:p-8">
-        <p className="eyebrow text-ember">{site.drop.name}</p>
+
         <h2 id="checkout-title" ref={headingRef} tabIndex={-1} className="display mt-3 text-display-md text-paper outline-none">
-          The first drop hasn’t opened yet.
+          Checkout is coming soon.
         </h2>
         <p className="mt-4 text-body text-bone">
-          We’re not taking payment until the first run is printed and checked. Leave an email and you’ll hear before
-          anyone else, with what you picked already in the note.
+          This preview lets you explore the collection and try the cart. It does not place orders or take payment.
         </p>
         <div className="mt-6">
           <EmailCapture source="checkout" context={describeCart(state)} label="Email me when checkout opens" variant="stacked" />

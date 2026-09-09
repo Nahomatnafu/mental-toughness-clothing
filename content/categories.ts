@@ -8,8 +8,8 @@ export interface Category {
 }
 
 export const categories: readonly Category[] = [
-  { slug: "fleece", name: "Fleece", blurb: "Hoodies and crewnecks. Heavyweight, brushed inside." },
-  { slug: "tees", name: "Tees", blurb: "Boxy cuts in midweight cotton. Short sleeve, long sleeve, tank." },
+  { slug: "fleece", name: "Hoodies & Fleece", blurb: "Pullover hoodies, full-zip layers, and crewnecks." },
+  { slug: "tees", name: "Tees", blurb: "Classic logos, bold graphics, and fits for every day." },
   { slug: "bottoms", name: "Bottoms", blurb: "Joggers and sweat shorts carrying the STAY STRONG badge." },
   { slug: "headwear", name: "Headwear", blurb: "Bucket hat and beanie. One size." },
 ] as const;

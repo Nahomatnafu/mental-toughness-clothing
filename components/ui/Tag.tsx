@@ -23,7 +23,7 @@ export function DropStatus({ className = "" }: { className?: string }) {
       <span aria-hidden="true" className="relative inline-flex h-2 w-2">
         <span className="absolute inset-0 bg-signal" />
       </span>
-      Drop 01 · waitlist open
+      Mental Toughness Clothing
     </span>
   );
 }

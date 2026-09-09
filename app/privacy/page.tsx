@@ -22,7 +22,7 @@ export default function PrivacyPage() {
       <div className="prose-mt measure mt-10 text-body text-bone">
         <p>This site is run by {site.name}, a brand of {site.parent.legalName}, {site.region.state}. It collects as little as it can.</p>
         <p>
-          <strong className="text-paper">Waitlist and notify-me forms</strong> collect your email address, which form you used, and — if you were in the cart — a note of what you had picked. We use it to send you one email when the drop opens or the item is available, and a confirmation when you sign up. It goes nowhere else.
+          <strong className="text-paper">Email update forms</strong> collect your email address, which form you used, and — if you were in the cart — a note of what you had picked. When email delivery is connected, this information is used for the product updates or brand news you requested, plus a signup confirmation.
         </p>
         <p>
           <strong className="text-paper">The contact form</strong> collects your name, email, a topic and your message, so we can reply.

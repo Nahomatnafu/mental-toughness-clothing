@@ -75,7 +75,9 @@ export function cartSubtotal(state: CartState): number {
 }
 
 /** Unit price for a size, applying the upcharge once the client sets one. */
-export function unitPriceFor(product: Product, size: Size): number {
+export function unitPriceFor(product: Product, size: Size, colorwaySlug?: string): number {
+  const variant = product.colorways.find(c => c.slug === colorwaySlug)?.variants?.find(v => v.size === size);
+  if (variant) return variant.price;
   const up = product.sizeUpcharge?.[size] ?? 0;
   return product.price + up;
 }

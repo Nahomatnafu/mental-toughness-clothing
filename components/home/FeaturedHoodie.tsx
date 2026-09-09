@@ -5,7 +5,7 @@ import { home } from "@/content/home";
 import { getProduct } from "@/content/products";
 
 export function FeaturedHoodie() {
-  const hoodie = getProduct("heavyweight-hoodie");
+  const hoodie = getProduct("mental-toughness-hoodie-elite");
   if (!hoodie) return null;
   return (
     <section aria-labelledby="featured-title" className="py-12 lg:py-24">

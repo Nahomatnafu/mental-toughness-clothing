@@ -84,7 +84,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             </dl>
 
             <div className="mt-8">
-              <SizeGuide guide={product.sizeGuide} />
+              <SizeGuide guide={product.sizeGuide} product={product} />
               <details className="disclosure">
                 <summary>Care</summary>
                 <ul className="space-y-2 pb-6 text-body-sm text-bone">
@@ -96,8 +96,8 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               <details className="disclosure">
                 <summary>Shipping and returns</summary>
                 <div className="space-y-3 pb-6 text-body-sm text-bone">
-                  <p>Nothing ships until Drop 01 opens. Printed pieces are made to order and take about a week to produce before they post; the rhinestone hoodie ships from Minnesota.</p>
-                  <p>Return policy is set with the drop. Made-to-order pieces are usually exchange-only for sizing, and anything that arrives wrong or damaged is replaced.</p>
+                  <p>Ordering, shipping options, and delivery estimates will be available when checkout is connected.</p>
+                  <p>For questions about an existing order, please contact the brand.</p>
                 </div>
               </details>
             </div>
@@ -107,9 +107,9 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
 
       <section aria-labelledby="next-title" className="mt-20 lg:mt-28">
         <Container>
-          <p className="eyebrow text-bone">Keep going</p>
+
           <h2 id="next-title" className="display mt-3 text-display-md text-paper">
-            Next: {next.name}
+            You may also like
           </h2>
           <Beam loadAt={0.08} className="mt-5" />
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-12">

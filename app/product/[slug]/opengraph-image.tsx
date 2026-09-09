@@ -49,7 +49,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         </div>
         <div style={{ width: 460, display: "flex", alignItems: "center", justifyContent: "center", background: isPhoto ? OG.ink2 : OG.ink, position: "relative" }}>
           {photo ? (
-            <img src={photo} alt="" style={{ width: isPhoto ? 380 : 460, height: isPhoto ? 400 : 630, objectFit: isPhoto || img?.kind === "concept" ? "contain" : "cover" }} />
+            <img src={photo} alt="" style={{ width: isPhoto ? 380 : 460, height: isPhoto ? 400 : 630, objectFit: "contain" }} />
           ) : (
             <div style={{ display: "flex", flexDirection: "column", width: 460, height: 630, background: OG.ink2, color: OG.bone, fontSize: 20, letterSpacing: 2, textTransform: "uppercase", justifyContent: "flex-end", padding: 40 }}>
               Not photographed yet

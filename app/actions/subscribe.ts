@@ -3,7 +3,6 @@
 import { ownerNotice, subscriberConfirmation, type CaptureSource } from "@/emails/waitlist";
 import { addToAudience, sendEmail } from "@/lib/email";
 import { cleanText, isEmail, isHoneypotTripped, type ActionState } from "@/lib/validation";
-import { site } from "@/content/site";
 
 const SOURCES: readonly CaptureSource[] = ["waitlist", "notify", "checkout"];
 
@@ -53,7 +52,7 @@ export async function subscribe(_prev: ActionState, formData: FormData): Promise
       ? "Done. You'll get one email when it's available."
       : source === "checkout"
         ? "Done. You'll hear the day checkout opens, with your picks in the note."
-        : `You're on the list. ${site.drop.name} opens to you first.`;
+        : "Thanks for joining. We’ll keep you updated.";
 
   return { status: "success", message };
 }

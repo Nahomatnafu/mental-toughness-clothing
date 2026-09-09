@@ -17,10 +17,28 @@ async function loadConfig(path, imports = {}) {
   return module.exports;
 }
 
-const manifest = await loadConfig("content/image-manifest.ts");
+const catalogImages = await loadConfig("content/catalog-images.ts");
+const catalogProducts = await loadConfig("content/catalog-products.ts");
+const manifest = await loadConfig("content/image-manifest.ts", { "./catalog-images": catalogImages });
 const { products, primaryImage, imageKindLabels } = await loadConfig("content/products.ts", {
   "./image-manifest": manifest,
+  "./catalog-products": catalogProducts,
 });
+const { unitPriceFor } = await loadConfig("lib/cart.ts");
+const source = JSON.parse((await readFile("assets/catalog-source.json", "utf8")).replace(/^\uFEFF/, ""));
+for (const product of products.filter(p=>p.source)) {
+  const original = source.products.find(p=>p.handle === product.slug);
+  assert.ok(original);
+  for (const color of product.colorways) {
+    for (const variant of color.variants) {
+      const originalVariant = original.variants.find(v=>String(v.id) === variant.sourceId);
+      assert.equal(variant.price, Math.round(Number(originalVariant.price)*100));
+      assert.equal(variant.available, originalVariant.available);
+      assert.equal(unitPriceFor(product, variant.size, color.slug), variant.price);
+      assert.equal(color.images[0].key, `catalog-${product.slug}-${originalVariant.featured_image.position}`, "Use the source variant's image, never a guessed color");
+    }
+  }
+}
 let colorways = 0;
 let concepts = 0;
 for (const product of products) {
@@ -31,7 +49,7 @@ for (const product of products) {
     colorways++;
     assert.ok(colorway.images.length, `${product.slug}/${colorway.slug} lacks imagery`);
     assert.ok(colorway.images.some(image => image.view === "front"), `${product.slug}/${colorway.slug} lacks a front`);
-    assert.ok(colorway.images.some(image => image.view === "back"), `${product.slug}/${colorway.slug} lacks a back`);
+    if (!product.source) assert.ok(colorway.images.some(image => image.view === "back"), `${product.slug}/${colorway.slug} lacks a back`);
     assert.equal(primaryImage(product, colorway.slug)?.key, colorway.images[0].key);
     for (const image of colorway.images) {
       const meta = manifest.images[image.key];

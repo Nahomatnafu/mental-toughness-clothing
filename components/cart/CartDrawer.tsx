@@ -155,7 +155,7 @@ export function CartDrawer() {
               <span className="eyebrow text-bone">Subtotal</span>
               <span className="display-narrow tabular text-display-sm text-paper">{formatPrice(subtotal)}</span>
             </div>
-            <p className="mt-2 text-body-sm text-bone">Shipping and tax are worked out at checkout. Checkout opens with Drop 01.</p>
+            <p className="mt-2 text-body-sm text-bone">Checkout is not enabled in this preview.</p>
             <Button block className="mt-5" onClick={() => setCheckoutOpen(true)} tabIndex={isOpen ? 0 : -1}>
               {CHECKOUT_ENABLED ? "Checkout" : "Checkout — get notified"}
             </Button>

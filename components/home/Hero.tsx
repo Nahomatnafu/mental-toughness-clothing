@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
-import { Beam } from "@/components/ui/Beam";
+
 import { Button } from "@/components/ui/Button";
-import { DropStatus } from "@/components/ui/Tag";
+
 import { images } from "@/content/image-manifest";
 import { home } from "@/content/home";
 import { getProduct } from "@/content/products";
@@ -23,12 +23,12 @@ export function Hero() {
       <Container className="hero-grid">
         <div className="hero-copy">
           <div className="rise" style={{ "--i": 0 } as React.CSSProperties}>
-            <DropStatus />
+            <p className="eyebrow text-bone">Mental Toughness Clothing</p>
           </div>
           <h1 id="hero-title" className="display rise hero-headline" style={{ "--i": 1 } as React.CSSProperties}>
-            Keep going.<br /><span>In your own way.</span>
+            Wear your<br /><span>strength.</span>
           </h1>
-          <Beam mode="hero" loadAt={0.1} sag={14} className="hero-beam max-w-[38rem]" />
+
           <p className="rise hero-lede text-bone" style={{ "--i": 2 } as React.CSSProperties}>
             {home.hero.lede}
           </p>
@@ -41,7 +41,7 @@ export function Hero() {
         </div>
 
         <div className="hero-art">
-          <span className="hero-edition eyebrow">The original / 001</span>
+
           <Monogram className="hero-watermark" />
           <Link href="/product/rhinestone-hoodie" className="settle group hero-product">
             <Image
@@ -54,10 +54,10 @@ export function Hero() {
               className="hero-garment"
             />
           </Link>
-          <div className="hero-product-label"><div><span className="eyebrow">Rhinestone / Red</span><p className="display-narrow">The piece that started it.</p></div><Link href="/product/rhinestone-hoodie" aria-label="Explore the Rhinestone Hoodie">↗</Link></div>
+          <div className="hero-product-label"><div><span className="eyebrow">Rhinestone Hoodie</span><p className="display-narrow">Signature sparkle. Everyday comfort.</p></div><Link href="/product/rhinestone-hoodie" aria-label="Explore the Rhinestone Hoodie">↗</Link></div>
         </div>
       </Container>
-      <div className="brand-ribbon eyebrow"><span>Mental Toughness</span><span aria-hidden="true">✳</span><span>A reminder you can wear</span><span aria-hidden="true">✳</span><span>Southern Minnesota</span></div>
+      <div className="brand-ribbon eyebrow"><span>Mental Toughness</span><span aria-hidden="true">✳</span><span>Stay strong</span><span aria-hidden="true">✳</span><span>Southern Minnesota</span></div>
     </section>
   );
 }

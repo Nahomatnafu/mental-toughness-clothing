@@ -12,7 +12,7 @@ export function Footer() {
           <div className="md:col-span-5">
             <Monogram className="h-10 w-auto text-paper" />
             <p className="mt-6 max-w-[34ch] text-body-sm">
-              Mental-health-awareness streetwear from {site.region.area}. Made for the days you keep going anyway.
+              Clothing for mental health awareness, resilience, and active living. Based in {site.region.area}.
             </p>
             <p className="mt-6 eyebrow text-ash">
               In a hard place right now?{" "}
@@ -94,7 +94,7 @@ export function Footer() {
             </a>{" "}
             company, {site.region.state}.
           </p>
-          <p>Prices in USD. Nothing here takes payment yet — {site.drop.name} opens to the waitlist first.</p>
+          <p>Prices in USD. Checkout is not enabled in this preview.</p>
         </div>
       </div>
     </footer>

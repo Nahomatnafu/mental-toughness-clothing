@@ -8,9 +8,9 @@ export const contentType = "image/png";
 export const dynamic = "force-static";
 
 export default async function Image() {
-  const headline = "Made for the days you keep going anyway.";
+  const headline = "Wear your strength.";
   const [font, mark] = await Promise.all([
-    loadGoogleFont("Mona Sans", OG_CHARS, 700, 116),
+    loadGoogleFont("Mona Sans", OG_CHARS, 700, 100),
     publicImageDataUrl("/images/brand/monogram-600.png"),
   ]);
 
@@ -21,10 +21,6 @@ export default async function Image() {
           <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 22, letterSpacing: 2, textTransform: "uppercase", color: OG.bone }}>
             {mark ? <img src={mark} width={44} height={44} alt="" /> : null}
             <span>{site.name}</span>
-            <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 12 }}>
-              <span style={{ width: 10, height: 10, background: "#fe732e" }} />
-              Drop 01 · waitlist open
-            </span>
           </div>
           <div style={{ display: "flex", fontSize: 84, lineHeight: 0.98, letterSpacing: -2.5, fontWeight: 700, maxWidth: 980 }}>{headline}</div>
           <div style={{ display: "flex", height: 6, background: OG.brick, width: 220 }} />
