@@ -3,6 +3,7 @@
 import { ownerNotice, subscriberConfirmation, type CaptureSource } from "@/emails/waitlist";
 import { addToAudience, sendEmail } from "@/lib/email";
 import { cleanText, isEmail, isHoneypotTripped, type ActionState } from "@/lib/validation";
+import { site } from "@/content/site";
 
 const SOURCES: readonly CaptureSource[] = ["waitlist", "notify", "checkout"];
 
